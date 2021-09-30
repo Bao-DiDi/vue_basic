@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组件嵌套练习</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <school></school>
+    </div>
+</body>
+<script type="text/javascript">
+    Vue.config.productionTip = false
+
+    // 注册学生组件
+    const student = {
+        name: 'studenthhh',
+        template: `
+            <div>
+                <h2>{{studentName}}</h2>
+                <h2>{{age}}</h2>
+                <button @click="addAge">年龄+1</button>
+            </div>  
+        `,
+        data() {
+            return {
+                studentName: '张三',
+                age: 23,
+            }
+        },
+        methods: {
+            addAge() {
+                console.log("点击了年龄添加")
+                this.age++
+            }
+        },
+    }
+
+    // 注册学校组件
+    const school = Vue.extend({
+        template: `
+        <div>
+            <h2>{{schoolName}}</h2>
+            <h2>{{address}}</h2>
+            <student></student>
+        </div>
+        `,
+        data() {
+            return {
+                schoolName: '北师大',
+                address: "北京海淀"
+            }
+        },
+        components:{
+            student
+        }
+    })
+   
+
+    new Vue({
+        el: "#root",
+        components: {
+            school: school,
+        }
+    })
+
+</script>
+
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组件的基本使用</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h1>{{hello}}</h1>
+        <hr />
+        <school></school>
+        <hr />
+        <student-box></student-box>
+        <student-box></student-box>
+    </div>
+</body>
+<script type="text/javascript">
+    Vue.config.productionTip = false
+
+    const school = Vue.extend({
+        template: `
+        <div>
+            <h2>{{schoolName}}</h2>
+            <h2>{{address}}</h2>
+        </div>
+        `,
+        data() {
+            return {
+                schoolName: '北师大',
+                address: "北京海淀"
+            }
+        }
+    })
+
+    // const student = Vue.extend({
+    //     template: `
+    //         <div>
+    //             <h2>{{studentName}}</h2>
+    //             <h2>{{age}}</h2>
+    //         </div>  
+    //     `,
+    //     data() {
+    //         return {
+    //             studentName: '张三',
+    //             age: 23,
+    //         }
+    //     }
+    // })
+
+    const student = {
+        name: 'studenthhh',
+        template: `
+            <div>
+                <h2>{{studentName}}</h2>
+                <h2>{{age}}</h2>
+                <button @click="addAge">年龄+1</button>
+            </div>  
+        `,
+        data() {
+            return {
+                studentName: '张三',
+                age: 23,
+            }
+        },
+        methods: {
+            addAge() {
+                console.log("点击了年龄添加")
+                this.age++
+            }
+        },
+    }
+
+
+    new Vue({
+        el: "#root",
+        data:{
+            hello: '你好！！'
+        },
+        components: {
+            school: school,
+            'student-box': student,
+        }
+    })
+
+    // new Vue({
+    //     el: "#root",
+    //     data: {
+    //         schoolName: '邮电大学',
+    //         address: '北京',
+    //         studentName: '张三',
+    //         age: 23,
+    //     }
+    // })
+</script>
+
+</html>
